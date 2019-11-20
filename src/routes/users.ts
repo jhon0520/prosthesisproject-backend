@@ -19,11 +19,10 @@ class UserRoutes {
             const newUser = await new User({userName, password, hospitalId, userType});
 
             await newUser.save().catch(error =>{
-                console.error(error);
-                response.status(404).send({reponse : false, content : "Something went wrong"})
-            }).then(()=>{
-                delete newUser.toJSON().password;
-                return response.status(200).send({reponse : true, content : newUser});
+                response.status(404).send({reponse : false, content :{message: "Something went wrong", type : error.errmsg}})
+            }).then(user =>{
+                //TODO: remove Password param
+                return response.status(200).send({reponse : true, content : user});
             });
         }catch(error){
             console.error(error);
@@ -34,22 +33,33 @@ class UserRoutes {
 
         try{
             const {userName, password} = request.body;
-            const user = await User.findOne({userName, password}).catch(error=>{
+            await User.findOne({userName, password}).catch(error=>{
                 console.error(error);
                 return response.status(404).send({reponse : false, content : "Something went wrong"});
-            }).then((user)=>{
-                console.log(user);
-                response.status(200).send({response : true});
+            }).then(user=>{
+                //TODO: remove Password param
+                response.status(200).send({response : true, content : user});
             });
         }catch(error){
             console.error(error);
         }
+    }
+
+    async getUsers(request : Request, response : Response){
+        await User.find().catch(error =>{
+            console.error(error);
+            return response.status(404).send({response: false, content : "Something went wrong"});
+        }).then(user =>{
+            //TODO: remove Password param
+            response.status(200).send({response : true, content : user});
+        });
 
     }
 
     routes (){
         this.router.post('/createUser', this.createUser);
         this.router.post('/validateUser', this.validateUser);
+        this.router.get('/getUser', this.getUsers);
     }
 }
 
