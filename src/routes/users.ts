@@ -33,13 +33,14 @@ class UserRoutes {
 
         try{
             const {userName, password} = request.body;
-            await User.findOne({userName, password}).catch(error=>{
-                console.error(error);
-                return response.status(404).send({reponse : false, content : "Something went wrong"});
-            }).then(user=>{
-                //TODO: remove Password param
-                response.status(200).send({response : true, content : user});
-            });
+            const userExisting = await User.findOne({userName, password});
+
+            if (userExisting == null) {
+                return response.status(404).send({reponse : false, content :{message: "user does not exist"}})
+            }
+            
+            return response.status(200).send({reponse : true, content : userExisting});
+        
         }catch(error){
             console.error(error);
         }
