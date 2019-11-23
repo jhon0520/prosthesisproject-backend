@@ -31,6 +31,7 @@ class Application{
 
     routes(){
         this.app.use('/api', [userRoutes, questionnaireRoutes]);
+        this.app.use('/static', express.static(__dirname + '/public'));
     }
 
     start(){
