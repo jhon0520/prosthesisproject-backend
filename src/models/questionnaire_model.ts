@@ -1,18 +1,15 @@
 import {Schema, model} from 'mongoose';
 
-const PetSchema = new Schema({
-    date : {
-        type : Date,
-        dafault : Date.now()
-    },
+const QuestionnaireSchema = new Schema({
+    
     personalID : {
+        type : Number
+    },
+    age : {
         type : Number
     },
     gender : {
         type : String
-    },
-    age : {
-        type : Number
     },
     departament : {
         type : String
@@ -46,4 +43,4 @@ const PetSchema = new Schema({
     }
 });
 
-export default model('Pet', PetSchema);
+export default model('Questionnaire', QuestionnaireSchema);

@@ -1,7 +1,6 @@
 import {Router, Request, Response} from 'express';
 
 import User from '../models/user_model';
-import connect from '../database';
 
 class UserRoutes {
     
@@ -19,10 +18,10 @@ class UserRoutes {
             const newUser = await new User({userName, password, hospitalId, userType});
 
             await newUser.save().catch(error =>{
-                response.status(404).send({reponse : false, content :{message: "Something went wrong", type : error.errmsg}})
+                response.status(404).send({response : false, content :{message: "Something went wrong", type : error.errmsg}})
             }).then(user =>{
                 //TODO: remove Password param
-                return response.status(200).send({reponse : true, content : user});
+                return response.status(200).send({response : true, content : user});
             });
         }catch(error){
             console.error(error);
@@ -36,10 +35,10 @@ class UserRoutes {
             const userExisting = await User.findOne({userName, password});
 
             if (userExisting == null) {
-                return response.status(404).send({reponse : false, content :{message: "user does not exist"}})
+                return response.status(404).send({response : false, content :{message: "user does not exist"}})
             }
-            
-            return response.status(200).send({reponse : true, content : userExisting});
+
+            return response.status(200).send({response : true, content : userExisting});
         
         }catch(error){
             console.error(error);
