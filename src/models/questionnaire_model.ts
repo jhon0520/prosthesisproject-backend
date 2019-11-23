@@ -1,7 +1,10 @@
 import {Schema, model} from 'mongoose';
 
 const QuestionnaireSchema = new Schema({
-    
+    date : {
+        type : Date,
+        default : Date.now()
+    },
     personalID : {
         type : Number
     },

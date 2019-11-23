@@ -13,12 +13,19 @@ class QuestionnaireRoutes {
 
     async getInformation(request : Request, response : Response){
 
+        const questionnaire = await Questionnaire.find();
+
+        if (questionnaire == null) {
+            return response.status(404).send({response : false, content : "Something went wrong"});
+        }
+
+        return response.status(200).send({response : true, content : questionnaire});
+
     }
 
     async createQuestionnaire(request : Request, response : Response){
         
         try{
-            console.log(request.body);
             const { personalID,
                     age,
                     gender,
