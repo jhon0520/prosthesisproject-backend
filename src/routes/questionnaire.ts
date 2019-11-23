@@ -1,6 +1,7 @@
 import {Router, Request, Response} from 'express';
 
 import Questionnaire from '../models/questionnaire_model';
+import fs from 'fs';
 
 class QuestionnaireRoutes {
     
@@ -13,11 +14,40 @@ class QuestionnaireRoutes {
 
     async getInformation(request : Request, response : Response){
 
-        const questionnaire = await Questionnaire.find();
+        const questionnaire = await Questionnaire.find().lean();
 
         if (questionnaire == null) {
             return response.status(404).send({response : false, content : "Something went wrong"});
         }
+
+        var text : String = 'Fecha;Cedula;Genero;Edad;Departamento;Zona vivienda;Tipo de Amputacion;Clasificacion;Zona;Tipo de protesis;Nivel de actividad;Tiempo desde la amputacion hasta la protetización;¿Realizó reabilitación pre-protesica?;¿Realizó reabilitación post-protesica?\n';
+        
+        // console.log(questionnaire.length);
+        for (let index = 0; index < questionnaire.length; index++) {
+            text += questionnaire[index].date + ';';
+            text += questionnaire[index].personalID + ';';
+            text += questionnaire[index].age + ';';
+            text += questionnaire[index].gender + ';'
+            text += questionnaire[index].departament + ';'
+            text += questionnaire[index].housingArea + ';'
+            text += questionnaire[index].amputationType + ';'
+            text += questionnaire[index].classification + ';'
+            text += questionnaire[index].zone + ';'
+            text += questionnaire[index].prosthesisType + ';'
+            text += questionnaire[index].activityLevel + ';'
+            text += questionnaire[index].time + ';'
+            text += questionnaire[index].question1 + ';'
+            text += questionnaire[index].question2 + '\n'
+            console.log(text);
+        }
+
+        fs.writeFile( __dirname + '/../public/prueba.csv', text, error =>{
+            if(error) {
+                console.log('error: ', error);
+              }
+        });
+
+        // console.log(archivo);
 
         return response.status(200).send({response : true, content : questionnaire});
 
