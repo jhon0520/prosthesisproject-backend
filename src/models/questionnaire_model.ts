@@ -23,6 +23,9 @@ const QuestionnaireSchema = new Schema({
     amputationType : {
         type : String
     },
+    amputationCause : {
+        type : String
+    },
     classification : {
         type : String
     },

@@ -26,19 +26,19 @@ class QuestionnaireRoutes {
         for (let index = 0; index < questionnaire.length; index++) {
             text += questionnaire[index].date + ';';
             text += questionnaire[index].personalID + ';';
+            text += questionnaire[index].gender + ';';
             text += questionnaire[index].age + ';';
-            text += questionnaire[index].gender + ';'
-            text += questionnaire[index].departament + ';'
-            text += questionnaire[index].housingArea + ';'
-            text += questionnaire[index].amputationType + ';'
-            text += questionnaire[index].classification + ';'
-            text += questionnaire[index].zone + ';'
-            text += questionnaire[index].prosthesisType + ';'
-            text += questionnaire[index].activityLevel + ';'
-            text += questionnaire[index].time + ';'
-            text += questionnaire[index].question1 + ';'
-            text += questionnaire[index].question2 + '\n'
-            console.log(text);
+            text += questionnaire[index].departament + ';';
+            text += questionnaire[index].housingArea + ';';
+            text += questionnaire[index].amputationType + ';';
+            text += questionnaire[index].amputationamputationCause + ';';
+            text += questionnaire[index].classification + ';';
+            text += questionnaire[index].zone + ';';
+            text += questionnaire[index].prosthesisType + ';';
+            text += questionnaire[index].activityLevel + ';';
+            text += questionnaire[index].time + ';';
+            text += questionnaire[index].question1 + ';';
+            text += questionnaire[index].question2 + '\n';
         }
 
         fs.writeFile( __dirname + '/../public/prueba.csv', text, error =>{
