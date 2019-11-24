@@ -20,7 +20,7 @@ class QuestionnaireRoutes {
             return response.status(404).send({response : false, content : "Something went wrong"});
         }
 
-        var text : String = 'Fecha;Cedula;Genero;Edad;Departamento;Zona vivienda;Tipo de Amputacion;Causa de Amputacion;Clasificacion;Zona;Tipo de protesis;Nivel de actividad;Tiempo desde la amputacion hasta la protetización;¿Realizó reabilitación pre-protesica?;¿Realizó reabilitación post-protesica?\n';
+        var text : String = 'Fecha;Cedula;Genero;Edad;Departamento;Zona vivienda;Tipo de Amputacion;Causa de la Amputación;Clasificacion;Zona;Tipo de protesis;Nivel de actividad;Tiempo desde la amputacion hasta la protetización;¿Realizó reabilitación pre-protesica?;¿Realizó reabilitación post-protesica?\n';
         
         // console.log(questionnaire.length);
         for (let index = 0; index < questionnaire.length; index++) {
@@ -31,7 +31,7 @@ class QuestionnaireRoutes {
             text += questionnaire[index].departament + ';';
             text += questionnaire[index].housingArea + ';';
             text += questionnaire[index].amputationType + ';';
-            text += questionnaire[index].amputationamputationCause + ';';
+            text += questionnaire[index].amputationCause + ';';
             text += questionnaire[index].classification + ';';
             text += questionnaire[index].zone + ';';
             text += questionnaire[index].prosthesisType + ';';
